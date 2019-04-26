@@ -1,5 +1,7 @@
-from urllib import urlopen, urlencode
-import md5
+from urllib.request import urlopen
+from urllib.parse import urlencode
+from datetime import datetime
+from hashlib import md5
 import re, string
 from unicodedata import normalize
 from functools import wraps
@@ -7,7 +9,7 @@ from flask import request, current_app, flash, make_response
 from random import choice
 import json
 
-from urlparse import urlparse, urljoin
+from urllib.parse import urlparse, urljoin
 
 
 def is_safe_url(target):
@@ -40,7 +42,7 @@ def request_wants_json():
         best = True
     else:
         best = False
-    if request.values.get('format','').lower() == 'json' or request.path.endswith(".json"):
+    if request.values.get('format', '').lower() == 'json' or request.path.endswith(".json"):
         best = True
     return best
         
@@ -48,20 +50,20 @@ def request_wants_json():
 # derived from http://flask.pocoo.org/snippets/5/ (public domain)
 # changed delimiter to _ instead of - due to ES search problem on the -
 _punct_re = re.compile(r'[\t !"#$%&\'()*\-/<=>?@\[\\\]^_`{|},.]+')
-def slugify(text, delim=u'_'):
+def slugify(text, delim='_'):
     """Generates an slightly worse ASCII-only slug."""
     result = []
     for word in _punct_re.split(text.lower()):
         word = normalize('NFKD', word).encode('ascii', 'ignore')
         if word:
             result.append(word)
-    return unicode(delim.join(result))
+    return str(delim.join(result))
 
 
 # get gravatar for email address
 def get_gravatar(email, size=None, default=None, border=None):
     email = email.lower().strip()
-    hash = md5.md5(email).hexdigest()
+    hash = md5(email).hexdigest()
     args = {'gravatar_id':hash}
     if size and 1 <= int(size) <= 512:
         args['size'] = size
@@ -135,7 +137,7 @@ def load_file(filename):
 def unicode_dict(d):
     """ Recursively convert dictionary keys to unicode """
     if isinstance(d, dict):
-        return dict((unicode(k), unicode_dict(v)) for k, v in d.items())
+        return dict((str(k), unicode_dict(v)) for k, v in list(d.items()))
     elif isinstance(d, list):
         return [unicode_dict(e) for e in d]
     else:
@@ -194,5 +196,5 @@ def validate_json(payload, fields_must_be_present=None, fields_must_not_be_prese
 def batch_up(long_list, batch_size):
     """Yield successive n-sized chunks from l (a list)."""
     # http://stackoverflow.com/a/312464/1154882
-    for i in xrange(0, len(long_list), batch_size):
+    for i in range(0, len(long_list), batch_size):
         yield long_list[i:i + batch_size]

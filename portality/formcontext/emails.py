@@ -30,10 +30,10 @@ def send_admin_ready_email(application, editor_id):
 
 def send_editor_group_email(obj):
     """ Send an email to the editor of a group """
-    if type(obj) is models.Suggestion:
+    if isinstance(obj, models.Suggestion):
         template = "email/editor_application_assigned_group.txt"
         subject = app.config.get("SERVICE_NAME", "") + " - new application assigned to your group"
-    elif type(obj) is models.Journal:
+    elif isinstance(obj, models.Journal):
         template = "email/editor_journal_assigned_group.txt"
         subject = app.config.get("SERVICE_NAME", "") + " - new journal assigned to your group"
     else:
@@ -59,10 +59,10 @@ def send_editor_group_email(obj):
 
 def send_assoc_editor_email(obj):
     """ Inform an associate editor that a journal or application has been assigned to them """
-    if type(obj) is models.Suggestion:
+    if isinstance(obj, models.Suggestion):
         template = "email/assoc_editor_application_assigned.txt"
         subject = app.config.get("SERVICE_NAME", "") + " - new application assigned to you"
-    elif type(obj) is models.Journal:
+    elif isinstance(obj, models.Journal):
         template = "email/assoc_editor_journal_assigned.txt"
         subject = app.config.get("SERVICE_NAME", "") + " - new journal assigned to you"
     else:
@@ -112,7 +112,7 @@ def send_publisher_editor_assigned_email(application):
         )
 
     fro = app.config.get('SYSTEM_EMAIL_FROM', 'feedback@doaj.org')
-    subject = app.config.get("SERVICE_NAME","") + " - your application has been assigned an editor for review"
+    subject = app.config.get("SERVICE_NAME", "") + " - your application has been assigned an editor for review"
 
     alerts = []
     for instructions in send_list:

@@ -384,11 +384,11 @@ class TestArticleMatch(DoajTestCase):
         assert DiscoveryApi._calc_pagination(20, 10, 2) == (2, 1, None, 2)
 
         # various requests for 10s of 1000s of results
-        assert DiscoveryApi._calc_pagination(9900 , 100, 1) == (99, None, 2, 99)
-        assert DiscoveryApi._calc_pagination(9900 , 100, 99) == (99, 98, None, 99)
+        assert DiscoveryApi._calc_pagination(9900, 100, 1) == (99, None, 2, 99)
+        assert DiscoveryApi._calc_pagination(9900, 100, 99) == (99, 98, None, 99)
 
-        assert DiscoveryApi._calc_pagination(9901 , 100, 1) == (100, None, 2, 100)
-        assert DiscoveryApi._calc_pagination(9902 , 100, 1) == (100, None, 2, 100)
+        assert DiscoveryApi._calc_pagination(9901, 100, 1) == (100, None, 2, 100)
+        assert DiscoveryApi._calc_pagination(9902, 100, 1) == (100, None, 2, 100)
         assert DiscoveryApi._calc_pagination(10000, 100, 1) == (100, None, 2, 100)
         assert DiscoveryApi._calc_pagination(10000, 100, 2) == (100, 1, 3, 100)
         assert DiscoveryApi._calc_pagination(10000, 100, 98) == (100, 97, 99, 100)

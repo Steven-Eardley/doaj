@@ -22,8 +22,8 @@ def editor_group_pull(cls, field, value):
     return eg
 
 mock_lcc_choices = [
-    (u'H', u'Social Sciences'),
-    (u'HB1-3840', u'--Economic theory. Demography')
+    ('H', 'Social Sciences'),
+    ('HB1-3840', '--Economic theory. Demography')
 ]
 
 def mock_lookup_code(code):
@@ -95,7 +95,7 @@ class TestEditorJournalReview(DoajTestCase):
         # now construct it from form data (with a known source)
         fc = formcontext.JournalFormFactory.get_form_context(
             role="editor",
-            form_data=MultiDict(JOURNAL_FORM) ,
+            form_data=MultiDict(JOURNAL_FORM),
             source=models.Journal(**JOURNAL_SOURCE)
         )
 

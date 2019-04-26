@@ -77,7 +77,7 @@ class TestBLLAcceptApplication(DoajTestCase):
         if provenance in ["true", "false"]:
             prov = provenance == "true"
 
-        save = bool(randint(0,1))
+        save = bool(randint(0, 1))
 
         ###########################################################
         # Execution

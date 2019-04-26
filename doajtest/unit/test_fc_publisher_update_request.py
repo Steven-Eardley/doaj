@@ -79,7 +79,7 @@ class TestPublisherUpdateRequestFormContext(DoajTestCase):
         acc.save(blocking=True)
         fc = formcontext.ApplicationFormFactory.get_form_context(
             role="publisher",
-            form_data=MultiDict(UPDATE_REQUEST_FORM) ,
+            form_data=MultiDict(UPDATE_REQUEST_FORM),
             source=source)
 
         assert isinstance(fc, formcontext.PublisherUpdateRequest)

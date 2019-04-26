@@ -24,7 +24,7 @@ def index():
     return render_template("account/users.html", search_page=True, facetviews=["users.facetview"])
 
 
-@blueprint.route('/<username>', methods=['GET','POST', 'DELETE'])
+@blueprint.route('/<username>', methods=['GET', 'POST', 'DELETE'])
 @login_required
 @ssl_required
 @write_required()
@@ -54,8 +54,8 @@ def username(username):
                 acc = models.Account.pull(newdata['id'])
         if request.values.get('submit', False) == 'Generate':
             acc.generate_api_key()
-        for k, v in newdata.items():
-            if k not in ['marketing_consent', 'submit','password', 'role', 'confirm', 'reset_token', 'reset_expires', 'last_updated', 'created_date', 'id']:
+        for k, v in list(newdata.items()):
+            if k not in ['marketing_consent', 'submit', 'password', 'role', 'confirm', 'reset_token', 'reset_expires', 'last_updated', 'created_date', 'id']:
                 acc.data[k] = v
         if 'password' in newdata and not newdata['password'].startswith('sha1'):
             acc.set_password(newdata['password'])

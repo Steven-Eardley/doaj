@@ -90,10 +90,10 @@ class TestCrudArticle(DoajTestCase):
         journal.bibjson().publisher = "The Publisher"
         journal.bibjson().set_license(
             **{
-                "license_title" : "CC BY",
-                "license_type" : "CC BY",
-                "url" : "http://license.example.com",
-                "version" : "1.0",
+                "license_title": "CC BY",
+                "license_type": "CC BY",
+                "url": "http://license.example.com",
+                "version": "1.0",
                 "open_access": True,
             }
         )
@@ -119,10 +119,10 @@ class TestCrudArticle(DoajTestCase):
         assert a.bibjson().publisher == 'The Publisher', a.bibjson().publisher
         assert a.bibjson().journal_title == 'The Title'
         assert a.bibjson().get_journal_license() == {
-            "title" : "CC BY",
-            "type" : "CC BY",
-            "url" : "http://license.example.com",
-            "version" : "1.0",
+            "title": "CC BY",
+            "type": "CC BY",
+            "url": "http://license.example.com",
+            "version": "1.0",
             "open_access": True,
         }
         assert a.bibjson().journal_language == ["EN", "FR"]
@@ -160,7 +160,7 @@ class TestCrudArticle(DoajTestCase):
         data["admin"]["in_doaj"] = False
         data["created_date"] = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
         ia = IncomingArticleDO(data)
-        assert isinstance(ia.bibjson.title, unicode)
+        assert isinstance(ia.bibjson.title, str)
 
         # now test some failures
 
@@ -296,10 +296,10 @@ class TestCrudArticle(DoajTestCase):
         journal.bibjson().publisher = "The Publisher"
         journal.bibjson().set_license(
             **{
-                "license_title" : "CC BY",
-                "license_type" : "CC BY",
-                "url" : "http://license.example.com",
-                "version" : "1.0",
+                "license_title": "CC BY",
+                "license_type": "CC BY",
+                "url": "http://license.example.com",
+                "version": "1.0",
                 "open_access": True,
             }
         )
@@ -367,10 +367,10 @@ class TestCrudArticle(DoajTestCase):
         assert updated.bibjson().publisher == 'The Publisher', updated.bibjson().publisher
         assert updated.bibjson().journal_title == 'The Title'
         assert updated.bibjson().get_journal_license() == {
-            "title" : "CC BY",
-            "type" : "CC BY",
-            "url" : "http://license.example.com",
-            "version" : "1.0",
+            "title": "CC BY",
+            "type": "CC BY",
+            "url": "http://license.example.com",
+            "version": "1.0",
             "open_access": True,
         }
         assert updated.bibjson().journal_language == ["EN", "FR"]

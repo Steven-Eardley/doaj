@@ -425,7 +425,7 @@ class ApplicationContext(PrivateContext):
 
         to = [send_info_to]
         fro = app.config.get('SYSTEM_EMAIL_FROM', 'feedback@doaj.org')
-        subject = app.config.get("SERVICE_NAME","") + " - account created"
+        subject = app.config.get("SERVICE_NAME", "") + " - account created"
 
         try:
             if app.config.get("ENABLE_PUBLISHER_EMAIL", False):
@@ -553,7 +553,7 @@ class ApplicationContext(PrivateContext):
 
     def _form_diff(self, journal_form, application_form):
         diff = []
-        for k, v in application_form.iteritems():
+        for k, v in application_form.items():
             try:
                 q = self.form[k].label
             except KeyError:
@@ -1253,7 +1253,7 @@ class PublisherUpdateRequest(ApplicationContext):
 
         to = [acc.email]
         fro = app.config.get('SYSTEM_EMAIL_FROM', 'feedback@doaj.org')
-        subject = app.config.get("SERVICE_NAME","") + " - update request received"
+        subject = app.config.get("SERVICE_NAME", "") + " - update request received"
 
         try:
             if app.config.get("ENABLE_PUBLISHER_EMAIL", False):

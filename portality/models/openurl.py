@@ -49,7 +49,7 @@ class OpenURLRequest(object):
 
         # Save any attributes specified at creation time
         if kwargs:
-            for key, value in kwargs.iteritems():
+            for key, value in kwargs.items():
                 setattr(self, key, value)
 
     def __str__(self):
@@ -139,7 +139,7 @@ class OpenURLRequest(object):
                 jtoc_url = url_for("doaj.toc", identifier=ident)
             return jtoc_url
 
-        elif results.get('hits', {}).get('hits',[{}])[0].get('_type') == 'article':
+        elif results.get('hits', {}).get('hits', [{}])[0].get('_type') == 'article':
             return url_for("doaj.article_page", identifier=results['hits']['hits'][0]['_id'])
 
     def query_for_vol(self, journalobj):

@@ -5,7 +5,7 @@ import json, requests
 
 save_to_file = True
 index_name = 'doaj'
-types = ['account','article','suggestion','upload','cache','lcc','editor_group','news','lock','provenance','background_job']
+types = ['account', 'article', 'suggestion', 'upload', 'cache', 'lcc', 'editor_group', 'news', 'lock', 'provenance', 'background_job']
 old_index = 'http://10.131.168.182:9200'
 new_index = 'http://localhost:9200'
 scroll_minutes = '5m'
@@ -20,11 +20,11 @@ for tp in types:
     res = start.json()
     records = []
     first = True
-    while (res.get('scroll_id',False) != False and (first == True or len(res.get('hits',{}).get('hits',[])) > 0)) or len(records) != 0:
+    while (res.get('scroll_id', False) != False and (first == True or len(res.get('hits', {}).get('hits', [])) > 0)) or len(records) != 0:
         first = False # a scan scroll will start empty, unlike a normal scroll - so need to know when looking at the first result
         if len(records) > bulk_size:
             if save_to_file == True:
-                out = open('records_' + tp + '_to_' + processed + '.json','w')
+                out = open('records_' + tp + '_to_' + processed + '.json', 'w')
                 out.write(json.dumps(records, indent=2))
                 out.close()
             bn = ''
@@ -32,15 +32,15 @@ for tp in types:
                 bn += json.dumps({'index':{'_index':index_name, '_type': tp, '_id': record['id']}}) + '\n'
                 bn += json.dumps(record) + '\n'
             s = requests.post(new_index + '/_bulk', data=bn)
-            print tp
-            print processed[tp]
-            print s.status_code
+            print(tp)
+            print(processed[tp])
+            print(s.status_code)
             records = []
         processed[tp] += len(res['hits']['hits'])
-        for r in res.get('hits',{}).get('hits',[]):
+        for r in res.get('hits', {}).get('hits', []):
             records.append(r['_source'])
-        if res.get('scroll_id',False) != False:
+        if res.get('scroll_id', False) != False:
             nxt = requests.get(old_index + '/_search/scroll?scroll=' + scroll_minutes + '&scroll_id=' + res['_scroll_id'])
             res = nxt.json()
 
-print json.dumps(processed, indent=2)
+print(json.dumps(processed, indent=2))

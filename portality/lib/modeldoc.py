@@ -50,8 +50,7 @@ def format(klazz, example, fields):
     table = "| Field | Description | Datatype | Format | Allowed Values |\n"
     table += "| ----- | ----------- | -------- | ------ | -------------- |\n"
 
-    keys = fields.keys()
-    keys.sort()
+    keys = sorted(list(fields.keys()))
 
     for k in keys:
         desc, datatype, format, values = fields.get(k)
@@ -69,7 +68,7 @@ def document(klazz, field_descriptions):
         example = {}
 
         # first do all the fields at this level
-        for simple_field, instructions in struct.get('fields', {}).iteritems():
+        for simple_field, instructions in struct.get('fields', {}).items():
             example[simple_field] = type_map(instructions.get("coerce"))
             fields[path + simple_field] = (field_descriptions.get(path + simple_field, ""), datatype(instructions.get("coerce")), form(instructions.get("coerce")), values_or_range(instructions.get("allowed_values"), instructions.get("allowed_range")))
 
@@ -80,7 +79,7 @@ def document(klazz, field_descriptions):
             example[obj] = do_document(newpath, instructions, fields)
 
         # finally do all the lists at this level
-        for l, instructions in struct.get('lists', {}).iteritems():
+        for l, instructions in struct.get('lists', {}).items():
             if instructions['contains'] == 'field':
                 example[l] = [type_map(instructions.get("coerce"))]
                 fields[path + l] = (field_descriptions.get(path + l, ""), datatype(instructions.get("coerce")), form(instructions.get("coerce")), values_or_range(instructions.get("allowed_values"), instructions.get("allowed_range")))

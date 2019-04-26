@@ -97,8 +97,7 @@ class TestBLLArticleGetDuplicates(DoajTestCase):
             # check that the articles are unique in the list
             article_ids = [a.id for a in duplicates]
             article_ids.sort()
-            deduped = list(set(article_ids))
-            deduped.sort()  # so it's comparable to the article_ids list, as the set() call destroys ordering
+            deduped = sorted(set(article_ids))
             assert article_ids == deduped   # i.e. that there were no duplicates
 
             # check that the articles are ordered by last_updated

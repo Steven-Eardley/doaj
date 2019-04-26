@@ -13,12 +13,12 @@ For background tasks, we use `redis`. Run this however you like, just make sure 
 
 ## The DOAJ Python app
 
-Install Python 2.6.6 or more recent . Not tested with Python 3.x .
+Install Python 3.6+
 
 Install pip using [pip's very robust instructions](http://www.pip-installer.org/en/latest/installing.html).
     
     sudo pip install virtualenv  # won't upgrade it if you already have it. pip install -- upgrade virtualenv for that.
-    virtualenv -p <path/to/python 2.7 executable> doajenv
+    virtualenv -p <path/to/python3 executable> doajenv
     cd doajenv
     . bin/activate
     mkdir src

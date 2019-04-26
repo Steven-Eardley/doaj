@@ -16,7 +16,7 @@ BASE_APPLICATION_STRUCT = {
     "objects": ["admin", "bibjson", "suggestion"],
 
     "structs": {
-        "admin" : {
+        "admin": {
             "fields" : {
                 "application_status" : {"coerce" : "unicode"},   # note we don't limit this to the allowed values, as this just gives us maintenance requirements
                 "owner" : {"coerce" : "unicode"},
@@ -186,7 +186,7 @@ BASE_APPLICATION_STRUCT = {
             }
         },
 
-        "suggestion" : {
+        "suggestion": {
             "fields" : {
                 "article_metadata" : {"coerce" : "bool"},
                 "suggested_on" : {"coerce" : "utcdatetime"}
@@ -326,7 +326,7 @@ class IncomingApplication(dataobj.DataObj, swagger.SwaggerSupport):
 
     def custom_validate(self):
         # only attempt to validate if this is not a blank object
-        if len(self.data.keys()) == 0:
+        if len(list(self.data.keys())) == 0:
             return
 
         # at least one of print issn / e-issn, and they must be different

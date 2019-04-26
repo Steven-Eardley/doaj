@@ -11,13 +11,13 @@ def request_password():
     password = getpass.getpass()
     confirm = getpass.getpass("Confirm Password:")
     if password != confirm:
-        print "passwords do not match - try again!"
+        print("passwords do not match - try again!")
         return None
     return password
 
 if __name__ == "__main__":
     if app.config.get("SCRIPTS_READ_ONLY_MODE", False):
-        print "System is in READ-ONLY mode, script cannot run"
+        print("System is in READ-ONLY mode, script cannot run")
         exit()
 
     import argparse, getpass
@@ -31,11 +31,11 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     if not args.username:
-        print "Please specify a username with the -u option"
+        print("Please specify a username with the -u option")
         exit()
     
     if not args.role:
-        print "WARNING: no role specified, so this user won't be able to do anything"
+        print("WARNING: no role specified, so this user won't be able to do anything")
     
     username = args.username
     email = args.email
@@ -43,7 +43,7 @@ if __name__ == "__main__":
     roles = [r.strip() for r in args.role.split(",")] if args.role is not None else []
 
     if 'api' not in roles:
-        print 'WARNING: \'api\' role omitted. New users are generally given an API Key'
+        print('WARNING: \'api\' role omitted. New users are generally given an API Key')
     
     if args.password:
         password = args.password

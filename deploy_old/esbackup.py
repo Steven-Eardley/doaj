@@ -64,12 +64,12 @@ if location:
     done.append('performing backups via index query')
     try:
         rs = requests.get(location + '/' + '_status')
-        indices = rs.json['indices'].keys()
+        indices = list(rs.json['indices'].keys())
         for index in indices:
             if index not in ignore:
                 try:
                     ts = requests.get(location + '/' + index + '/_mapping')
-                    types = ts.json[index].keys()
+                    types = list(ts.json[index].keys())
                     for t in types:
                         try:
                             rh = requests.get(location + '/' + index + '/' + t + '/_search?q=*&size=0')
@@ -77,7 +77,7 @@ if location:
                             r = requests.get(location + '/' + index + '/' + t + '/_search?q=*&size=' + str(size))
                             recs = [i['_source'] for i in r.json['hits']['hits']]
                             out = open(backuppath + index + '_' + t + '.json', 'w')
-                            out.write(json.dumps(recs,indent=4))
+                            out.write(json.dumps(recs, indent=4))
                             out.close()
                             done.append(location + '/' + index + '/' + t)
                         except:
@@ -90,7 +90,7 @@ if location:
 # if told where the index files are stored, grab a copy of them too
 if directory:
     try:
-        shutil.copytree(directory,backuppath + '/data')
+        shutil.copytree(directory, backuppath + '/data')
         done.append('performing backup of index files from ' + directory)
     except:
         pass
@@ -110,6 +110,6 @@ if mailto:
     pass
 
 # uncomment to print when done    
-print done
+print(done)
 
 

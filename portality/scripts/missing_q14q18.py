@@ -23,7 +23,7 @@ def output_map(record):
         "ID" : record.get("id"),
         "Journal Name" : record.get("bibjson", {}).get("title"),
         "ISSNs" : ", ".join(record.get("index", {}).get("issn", [])),
-        "In DOAJ?" : str(record.get("admin",{}).get("in_doaj")),
+        "In DOAJ?" : str(record.get("admin", {}).get("in_doaj")),
         "Q14" : str(record.get("bibjson", {}).get("apc_url") is not None),
         "Q18" : str(record.get("bibjson", {}).get("submission_charges_url") is not None)
     }

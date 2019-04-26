@@ -60,7 +60,7 @@ class FormHelper(object):
             if render_subfields_horizontal and not (subfield.type == 'CSRFTokenField' and not subfield.value):
                 subfield_width = "3"
                 remove = []
-                for kwarg, val in kwargs.iteritems():
+                for kwarg, val in kwargs.items():
                     if kwarg == 'subfield_display-' + subfield.short_name:
                         subfield_width = val
                         remove.append(kwarg)
@@ -157,7 +157,7 @@ class FormHelper(object):
         frag += field(**kwargs)
         frag += '<span class="label-text">' + field.label.text + '</span>'
 
-        if field.label.text in extra_input_fields.keys():
+        if field.label.text in list(extra_input_fields.keys()):
             frag += "&nbsp;" + extra_input_fields[field.label.text](**{"class" : "extra_input_field"})
 
         frag += "</label>"
@@ -171,7 +171,7 @@ class FormHelper(object):
         frag += field(**kwargs)
         frag += '<label for="' + field.short_name + '">' + field.label.text + '</label>'
 
-        if field.label.text in extra_input_fields.keys():
+        if field.label.text in list(extra_input_fields.keys()):
             eif = extra_input_fields[field.label.text]
             if not isinstance(eif, UnboundField):
                 frag += "&nbsp;" + extra_input_fields[field.label.text](**{"class" : "extra_input_field"})

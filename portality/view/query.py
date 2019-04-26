@@ -1,4 +1,4 @@
-import json, urllib2
+import json, urllib.request, urllib.error, urllib.parse
 
 from flask import Blueprint, request, abort, make_response
 from flask_login import current_user
@@ -10,7 +10,7 @@ from portality.bll import exceptions
 blueprint = Blueprint('query', __name__)
 
 # pass queries direct to index. POST only for receipt of complex query objects
-@blueprint.route('/<path:path>', methods=['GET','POST'])
+@blueprint.route('/<path:path>', methods=['GET', 'POST'])
 @util.jsonp
 def query(path=None):
     """
@@ -31,7 +31,7 @@ def query(path=None):
         q = request.json
     # if there is a source param, load the json from it
     elif 'source' in request.values:
-        q = json.loads(urllib2.unquote(request.values['source']))
+        q = json.loads(urllib.parse.unquote(request.values['source']))
 
     try:
         account = None

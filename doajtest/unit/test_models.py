@@ -724,8 +724,7 @@ class TestClient(DoajTestCase):
 
         cont = journal.make_continuation("replaces", eissn="2222-2222", pissn="3333-3333", title="Second Journal")
 
-        rep = bj.replaces
-        rep.sort()
+        rep = sorted(bj.replaces)
         assert rep == ["2222-2222", "3333-3333"]
 
         cbj = cont.bibjson()
@@ -752,8 +751,7 @@ class TestClient(DoajTestCase):
 
         cont = journal.make_continuation("is_replaced_by", eissn="2222-2222", pissn="3333-3333", title="Second Journal")
 
-        irb = bj.is_replaced_by
-        irb.sort()
+        irb = sorted(bj.is_replaced_by)
         assert irb == ["2222-2222", "3333-3333"]
 
         cbj = cont.bibjson()
@@ -799,8 +797,7 @@ class TestClient(DoajTestCase):
         # first do it with an eissn
         cont = journal.make_continuation("replaces", eissn="2222-2222", title="Second Journal")
 
-        rep = bj.replaces
-        rep.sort()
+        rep = sorted(bj.replaces)
         assert rep == ["2222-2222"]
 
         cbj = cont.bibjson()

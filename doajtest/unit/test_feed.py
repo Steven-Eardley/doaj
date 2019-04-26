@@ -18,7 +18,7 @@ class TestFeed(DoajTestCase):
     def test_01_object(self):
         # first try requesting a feed over the empty test index
         f = atom.get_feed("http://my.test.com")
-        assert len(f.entries.keys()) == 0
+        assert len(list(f.entries.keys())) == 0
         assert f.url == "http://my.test.com"
 
         # now populate the index and then re-get the feed
@@ -42,11 +42,10 @@ class TestFeed(DoajTestCase):
 
         with self.app_test.test_request_context('/feed'):
             f = atom.get_feed("http://my.test.com")
-        assert len(f.entries.keys()) == 5
+        assert len(list(f.entries.keys())) == 5
 
         # now go through the entries in order, and check they are as expected
-        entry_dates = f.entries.keys()
-        entry_dates.sort()
+        entry_dates = sorted(list(f.entries.keys()))
 
         for i in range(5):
             e = f.entries.get(entry_dates[i])[0]

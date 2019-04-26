@@ -148,7 +148,7 @@ class Journal2QuestionXwalk(object):
 
         def license_checkbox(val):
             opts = {}
-            [opts.update({k : v}) for k,v  in choices.Choices.licence_checkbox()]
+            [opts.update({k : v}) for k, v  in choices.Choices.licence_checkbox()]
             nv = [opts.get(v) for v in val]
             return ", ".join(nv)
 

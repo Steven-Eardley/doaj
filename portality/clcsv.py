@@ -1,5 +1,5 @@
 import csv, codecs
-import cStringIO
+import io
 
 
 class ClCsv():
@@ -14,7 +14,7 @@ class ClCsv():
         self.data = []
 
         # Get an open file object from the given file_path or file object
-        if type(file_path) == file:
+        if hasattr(file_path, 'read'):                  # FIXME: these checks aren't necessarily 'pythonic'
             self.file_object = file_path
             if self.file_object.closed:
                 self.file_object = codecs.open(self.file_object.name, 'r+b', encoding='utf-8')
@@ -67,10 +67,10 @@ class ClCsv():
         :return: The column, as a { heading : [contents] } dict.
         """
         try:
-            if type(col_identifier) == int:
+            if isinstance(col_identifier, int):
                 # get column by index
                 return self.data[col_identifier]
-            elif isinstance(col_identifier, basestring):
+            elif isinstance(col_identifier, str):
                 # get column by title
                 for col in self.data:
                     if col[0] == col_identifier:
@@ -85,21 +85,21 @@ class ClCsv():
         :param col_contents: The contents for the column
         """
         try:
-            if type(col_identifier) == int:
+            if isinstance(col_identifier, int):
                 self.data[col_identifier] = col_contents
-            elif isinstance(col_identifier, basestring):
+            elif isinstance(col_identifier, str):
                 # set column by title.
                 num = self.get_colnumber(col_identifier)
-                if num is not None and type(col_contents) == list:
+                if num is not None and isinstance(col_contents, list):
                     self.set_column(num, (col_identifier, col_contents))
                 else:
                     raise IndexError
 
         except IndexError:
             # The column isn't there already; append a new one
-            if type(col_identifier) == int:
+            if isinstance(col_identifier, int):
                 self.data.append(col_contents)
-            elif isinstance(col_identifier, basestring):
+            elif isinstance(col_identifier, str):
                 self.data.append((col_identifier, col_contents))
 
     def get_colnumber(self, header):
@@ -182,8 +182,8 @@ class UTF8Recoder:
     def __iter__(self):
         return self
 
-    def next(self):
-        val = self.reader.next()
+    def __next__(self):
+        val = next(self.reader)
         raw = val.encode("utf-8")
         if raw.startswith(codecs.BOM_UTF8):
             raw = raw.replace(codecs.BOM_UTF8, '', 1)
@@ -199,9 +199,9 @@ class UnicodeReader:
         f = UTF8Recoder(f, encoding)
         self.reader = csv.reader(f, dialect=dialect, **kwds)
 
-    def next(self):
-        row = self.reader.next()
-        return [unicode(s, "utf-8") for s in row]
+    def __next__(self):
+        row = next(self.reader)
+        return [str(s, "utf-8") for s in row]
 
     def __iter__(self):
         return self
@@ -214,7 +214,7 @@ class UnicodeWriter:
 
     def __init__(self, f, dialect=csv.excel, encoding="utf-8", **kwds):
         # Redirect output to a queue
-        self.queue = cStringIO.StringIO()
+        self.queue = io.StringIO()
         self.writer = csv.writer(self.queue, dialect=dialect, **kwds)
         self.stream = f
         self.encoder = codecs.getincrementalencoder(encoding)()
@@ -224,7 +224,7 @@ class UnicodeWriter:
         for s in row:
             if s is None:
                 s = ''
-            if not isinstance(s, basestring):
+            if not isinstance(s, str):
                 s = str(s)
             encoded_row.append(s.encode("utf-8"))
         self.writer.writerow(encoded_row)

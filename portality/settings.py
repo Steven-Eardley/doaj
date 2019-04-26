@@ -457,14 +457,14 @@ QUERY_ROUTE = {
 
 QUERY_FILTERS = {
     # sanitisers
-    "public_query_validator" : "portality.lib.query_filters.public_query_validator",
+    "public_query_validator": "portality.lib.query_filters.public_query_validator",
 
     # query filters
-    "only_in_doaj" : "portality.lib.query_filters.only_in_doaj",
-    "owner" : "portality.lib.query_filters.owner",
-    "update_request" : "portality.lib.query_filters.update_request",
-    "associate" : "portality.lib.query_filters.associate",
-    "editor" : "portality.lib.query_filters.editor",
+    "only_in_doaj": "portality.lib.query_filters.only_in_doaj",
+    "owner": "portality.lib.query_filters.owner",
+    "update_request": "portality.lib.query_filters.update_request",
+    "associate": "portality.lib.query_filters.associate",
+    "editor": "portality.lib.query_filters.editor",
 
     # result filters
     "public_result_filter": "portality.lib.query_filters.public_result_filter",

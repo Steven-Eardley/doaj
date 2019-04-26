@@ -59,7 +59,7 @@ class ArticleForm(Form):
         try:
             if not current_user.is_anonymous:
                 issns = models.Journal.issns_by_owner(current_user.id)
-                ic = [("", "Select an ISSN")] + [(i,i) for i in issns]
+                ic = [("", "Select an ISSN")] + [(i, i) for i in issns]
                 self.pissn.choices = ic
                 self.eissn.choices = ic
         except:

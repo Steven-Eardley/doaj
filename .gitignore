@@ -1,3 +1,6 @@
+2to3 migration
+*.bak
+
 # Local env file
 .env
 

@@ -25,9 +25,11 @@
 #     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 #     OTHER DEALINGS IN THE SOFTWARE.
 
-from UserDict import DictMixin
+#from UserDict import DictMixin                               http://python3porting.com/problems.html#replacing-userdict
+from collections import MutableMapping
 
-class OrderedDict(dict, DictMixin):
+
+class OrderedDict(dict, MutableMapping):
 
     def __init__(self, *args, **kwds):
         if len(args) > 1:
@@ -75,9 +77,9 @@ class OrderedDict(dict, DictMixin):
         if not self:
             raise KeyError('dictionary is empty')
         if last:
-            key = reversed(self).next()
+            key = next(reversed(self))
         else:
-            key = iter(self).next()
+            key = next(iter(self))
         value = self.pop(key)
         return key, value
 
@@ -94,19 +96,19 @@ class OrderedDict(dict, DictMixin):
     def keys(self):
         return list(self)
 
-    setdefault = DictMixin.setdefault
-    update = DictMixin.update
-    pop = DictMixin.pop
-    values = DictMixin.values
-    items = DictMixin.items
-    iterkeys = DictMixin.iterkeys
-    itervalues = DictMixin.itervalues
-    iteritems = DictMixin.iteritems
+    setdefault = MutableMapping.setdefault
+    update = MutableMapping.update
+    pop = MutableMapping.pop
+    values = MutableMapping.values
+    items = MutableMapping.items
+    iterkeys = MutableMapping.keys
+    itervalues = MutableMapping.values
+    iteritems = MutableMapping.items
 
     def __repr__(self):
         if not self:
             return '%s()' % (self.__class__.__name__,)
-        return '%s(%r)' % (self.__class__.__name__, self.items())
+        return '%s(%r)' % (self.__class__.__name__, list(self.items()))
 
     def copy(self):
         return self.__class__(self)
@@ -122,7 +124,7 @@ class OrderedDict(dict, DictMixin):
         if isinstance(other, OrderedDict):
             if len(self) != len(other):
                 return False
-            for p, q in  zip(self.items(), other.items()):
+            for p, q in  zip(list(self.items()), list(other.items())):
                 if p != q:
                     return False
             return True
@@ -130,4 +132,3 @@ class OrderedDict(dict, DictMixin):
 
     def __ne__(self, other):
         return not self == other
-

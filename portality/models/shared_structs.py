@@ -5,13 +5,13 @@ SHARED_BIBJSON = {
     "structs" : {
         "bibjson" : {
             "fields" : {
-                "title" : {"coerce" : "unicode"},
+                "title": {"coerce" : "unicode"},
             },
             "lists" : {
-                "identifier" : {"contains" : "object"},
-                "keywords" : {"contains" : "field", "coerce" : "unicode"},
-                "link" : {"contains" : "object"},
-                "subject" : {"contains" : "object"},
+                "identifier": {"contains" : "object"},
+                "keywords": {"contains" : "field", "coerce" : "unicode"},
+                "link": {"contains" : "object"},
+                "subject": {"contains" : "object"},
             },
             "structs" : {
                 "identifier" : {

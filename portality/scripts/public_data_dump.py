@@ -21,7 +21,7 @@ from portality.background import BackgroundApi
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument("type", choices=['article','journal', 'all'], help="type of data to export. ")
+    parser.add_argument("type", choices=['article', 'journal', 'all'], help="type of data to export. ")
     parser.add_argument("-c", "--clean", action="store_true", help="Clean any pre-existing output before continuing")
     parser.add_argument("-p", "--prune", action="store_true", help="Delete previous backups if any after running current backup")
     args = parser.parse_args()

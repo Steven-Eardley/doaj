@@ -88,7 +88,7 @@ class TestQueryFilters(DoajTestCase):
         # We just use applications as a base to construct them.
         apsrc_admin['ticked'] = True
         apsrc_admin['in_doaj'] = True
-        apsrc_admin['related_applications'] = [1,2,3]
+        apsrc_admin['related_applications'] = [1, 2, 3]
         apsrc_admin['current_application'] = 'abcde'
 
         allowed = ["ticked", "seal", "in_doaj", "related_applications", "current_application", "current_journal", "application_status"]
@@ -122,7 +122,7 @@ class TestQueryFilters(DoajTestCase):
         # We just use applications as a base to construct them.
         apsrc_admin['ticked'] = True
         apsrc_admin['in_doaj'] = True
-        apsrc_admin['related_applications'] = [1,2,3]
+        apsrc_admin['related_applications'] = [1, 2, 3]
         apsrc_admin['current_application'] = 'abcde'
 
         allowed = ["ticked", "seal", "in_doaj", "related_applications", "current_application", "current_journal", "application_status"]

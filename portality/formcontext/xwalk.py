@@ -13,8 +13,7 @@ def interpret_list(current_values, allowed_values, substitutions):
     for cv in current_values:
         if cv not in allowed_values:
             foreign_values[current_values.index(cv)] = cv
-    ps = foreign_values.keys()
-    ps.sort()
+    ps = sorted(list(foreign_values.keys()))
 
     # FIXME: if the data is broken, just return it as is
     if len(ps) > len(substitutions):
@@ -31,7 +30,7 @@ def interpret_list(current_values, allowed_values, substitutions):
 
 def interpret_special(val):
     # if you modify this, make sure to modify reverse_interpret_special as well
-    if isinstance(val, basestring):
+    if isinstance(val, str):
         if val.lower() == Choices.TRUE.lower():
             return True
         elif val.lower() == Choices.FALSE.lower():
@@ -98,7 +97,7 @@ def interpret_other(value, other_field_data, other_value=Choices.OTHER, store_ot
         More technically: the value which triggers considering and adding the data in other_field to value.
     '''
     # if you modify this, make sure to modify reverse_interpret_other too
-    if isinstance(value, basestring):
+    if isinstance(value, str):
         if value == other_value:
             return other_field_data
     elif isinstance(value, list):
@@ -128,7 +127,7 @@ def reverse_interpret_other(interpreted_value, possible_original_values, other_v
     # if you modify this, make sure to modify interpret_other too
     other_field_val = ''
 
-    if isinstance(interpreted_value, basestring):
+    if isinstance(interpreted_value, str):
         # A special case first: where the value is the empty string.
         # In that case, the main field was never submitted (e.g. if it was
         # a choice of "Yes", "No" and "Other", none of those were submitted
@@ -205,11 +204,11 @@ class JournalGenericXWalk(object):
 class SuggestionFormXWalk(JournalGenericXWalk):
 
     _formFields2objectFields = {
-        "instructions_authors_url" : "bibjson.link.url where bibjson.link.type=author_instructions",
-        "oa_statement_url" : "bibjson.link.url where bibjson.link.type=oa_statement",
-        "aims_scope_url" : "bibjson.link.url where bibjson.link.type=aims_scope",
-        "submission_charges_url" : "bibjson.submission_charges_url",
-        "editorial_board_url" : "bibjson.link.url where bibjson.link.type=editorial_board",
+        "instructions_authors_url": "bibjson.link.url where bibjson.link.type=author_instructions",
+        "oa_statement_url": "bibjson.link.url where bibjson.link.type=oa_statement",
+        "aims_scope_url": "bibjson.link.url where bibjson.link.type=aims_scope",
+        "submission_charges_url": "bibjson.submission_charges_url",
+        "editorial_board_url": "bibjson.link.url where bibjson.link.type=editorial_board",
     }
 
     @classmethod

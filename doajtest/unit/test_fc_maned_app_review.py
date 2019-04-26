@@ -25,8 +25,8 @@ def editor_group_pull(cls, field, value):
     return eg
 
 mock_lcc_choices = [
-    (u'H', u'Social Sciences'),
-    (u'HB1-3840', u'--Economic theory. Demography')
+    ('H', 'Social Sciences'),
+    ('HB1-3840', '--Economic theory. Demography')
 ]
 
 def mock_lookup_code(code):
@@ -87,7 +87,7 @@ class TestManEdAppReview(DoajTestCase):
         # now construct it from form data (with a known source)
         fc = formcontext.ApplicationFormFactory.get_form_context(
             role="admin",
-            form_data=MultiDict(APPLICATION_FORM) ,
+            form_data=MultiDict(APPLICATION_FORM),
             source=models.Suggestion(**APPLICATION_SOURCE))
 
         assert isinstance(fc, formcontext.ManEdApplicationReview)
